@@ -1,0 +1,32 @@
+//request example
+{
+    "job_id": "job_001",
+    "s3_path": "user123/datasets/sales.csv",
+    "job_config": {
+      "type": "descriptive",
+      "tasks": ["row_count", "min_max_mean", "null_percentage"]
+    },
+    "node_list": [1, 2, 4, 8]
+}
+
+//respone example
+{
+    "status": "SUCCESS",
+    "data": {
+        "job_id": "job_001",
+        "result_path": "user123/result/job_001/output",
+        "performance_metrics": [
+            {"nodes": 1, "time_sec": 3.210, "speedup": 1.0, "efficiency": 1.0},
+            {"nodes": 2, "time_sec": 1.780, "speedup": 1.80, "efficiency": 0.90},
+            {"nodes": 4, "time_sec": 1.020, "speedup": 3.15, "efficiency": 0.79},
+            {"nodes": 8, "time_sec": 0.610, "speedup": 5.26, "efficiency": 0.66}
+        ],
+        "performance_metrics_s3": "s3://spark-data/user123/result/job_001/output/performance.csv",
+        "outputs": {
+          "1_nodes": "s3://spark-data/user123/result/job_001/output/1_nodes.json",
+          "2_nodes": "s3://spark-data/user123/result/job_001/output/2_nodes.json",
+          "4_nodes": "s3://spark-data/user123/result/job_001/output/4_nodes.json",
+          "8_nodes": "s3://spark-data/user123/result/job_001/output/8_nodes.json"
+        }
+      }
+  }
