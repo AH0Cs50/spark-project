@@ -7,7 +7,18 @@ load_dotenv()
 
 app = FastAPI(title="Spark Job Microservice")
 
+@app.get("/")
+async def root():
+    """
+    Main endpoint for health check or basic info.
+    """
+    return {
+        "status": "FastAPI Spark microservice running",
+        "message": "Use /run-job/ to submit Spark processing jobs",
+        "spark_version": spark.version
+    }
 
+# --------- Spark Job Endpoint --------
 @app.post("/submit-job")
 def submit_job_endpoint(request_json: dict):
     """
